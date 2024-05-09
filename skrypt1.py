@@ -137,13 +137,13 @@ def main():
     args = parse_arguments()
     transformer = CoordinateTransformer()
 
-    # Load input file
+    # Załaduj plik
     with open(args.input, newline='') as infile:
         reader = csv.reader(infile)
         header = next(reader)
         data = [list(map(float, row)) for row in reader]
 
-    # Perform the requested transformation
+   
     results = []
     try:
         if args.transformacja == 'XYZ_do_BLH':
