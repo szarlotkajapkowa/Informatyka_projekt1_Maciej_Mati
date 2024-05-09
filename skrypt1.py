@@ -35,7 +35,7 @@ class CoordinateTransformer:
         lat_deg = math.degrees(lat)
         lon_deg = math.degrees(lon)
         return lat_deg, lon_deg, h
-
+    """Ta funkcja zamienia współrzędne XYZ na współrzędne geodezyjne"""
     def BLH_do_XYZ(self, lat, lon, h, a, e2):
         lat_rad = math.radians(lat)
         lon_rad = math.radians(lon)
@@ -44,6 +44,8 @@ class CoordinateTransformer:
         y = (N + h) * math.cos(lat_rad) * math.sin(lon_rad)
         z = (N * (1 - e2) + h) * math.sin(lat_rad)
         return x, y, z
+    """Ta funkcja zamienia współrzędne geodezyjne(BLH) na XYZ."""
+    
 
     def XYZ_do_NEU(self, x, y, z, lat, lon):
         lat_rad = math.radians(lat)
@@ -52,6 +54,9 @@ class CoordinateTransformer:
         dxyz = [x, y, z]
         neup = R @ dxyz
         return neup[0], neup[1], neup[2]
+    """Ta funkcja przekrztałca współrzędne XYZ do NEU"""
+
+
 
     def rneu(self, lat, lon):
         return [[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
@@ -80,6 +85,10 @@ class CoordinateTransformer:
 
         return xgk, ygk
 
+
+    """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne Gaussa-Krugera."""
+
+
     def sigma(self, lat, a, e2):
         A0 = 1 - e2 / 4 - 3 * e2**2 / 64 - 5 * e2**3 / 256
         A2 = (3 / 8) * (e2 + e2**2 / 4 + 15 * e2**3 / 128)
@@ -100,6 +109,10 @@ class CoordinateTransformer:
         y2000 = ygk * m2000 + zone * 1000000 + 500000
         return x2000, y2000
 
+
+    """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne w układzie 2000."""
+
+
     def BL_do_1992(self, lat, lon, elipsoida):
         a, e2 = self.wpisz_elipsoide(elipsoida)
         lon0 = 19
@@ -108,6 +121,9 @@ class CoordinateTransformer:
         x1992 = xgk * m1992 - 5300000
         y1992 = ygk * m1992 + 500000
         return x1992, y1992
+
+    """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne w układzie 1992."""
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='transformacja zmiany wspolrzednych')
@@ -157,7 +173,7 @@ def main():
         print(f'Error: {e}')
         sys.exit(1)
 
-    # Save results to output file
+    # Zapisz wyniki aby wyswietlić plik
     with open(args.output, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(['Wyniki transformacji'])  
