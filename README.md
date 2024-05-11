@@ -21,9 +21,9 @@ Został napisany w języku Python i obsługuje takie przekształcenia jak:
   
 #Obsługiwane elipsoidy w naszym programie:
 
--GRS80
--WGS84
--Krasowski
+-GRS80 <br>
+-WGS84 <br>
+-Krasowski <br>
 
 #Uruchomienie programu 
 
