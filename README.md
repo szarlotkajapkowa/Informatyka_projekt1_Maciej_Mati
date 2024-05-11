@@ -12,6 +12,7 @@ Został napisany w języku Python i obsługuje takie przekształcenia jak:
 - Python w wersji 3.6 lub nowszej
 - Microsoft Windows 10 lub nowszy
 - Biblioteki w Pythonie: 'argparse', 'csv', 'math', 'numpy'
+- Program korzysta z biblioteki 'sys' do przetwarzania argumentów przekazywanych z linii poleceń, która jest częścią standardowej biblioteki Pythona i nie wymaga osobnej instalacji
 
   Jeżeli użytkownik nie posiada zainstalowanych wszystkich wyżej wymienionych bibliotek, program nie zadziała.
   Oto przykład jak zainstalować bibliotekę 'numpy':
