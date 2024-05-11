@@ -16,7 +16,7 @@ Został napisany w języku Python i obsługuje takie przekształcenia jak:
   Jeżeli użytkownik nie posiada zainstalowanych wszystkich wyżej wymienionych bibliotek, program nie zadziała.
   Oto przykład jak zainstalować bibliotekę 'numpy':
 
-  '''bash
+  '''bash <>
   pip install numpy
   
 #Obsługiwane elipsoidy w naszym programie:
