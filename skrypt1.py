@@ -51,7 +51,8 @@ class CoordinateTransformer:
         lat_rad = math.radians(lat)
         lon_rad = math.radians(lon)
         R = self.rneu(lat_rad, lon_rad)
-        dxyz = [x, y, z]
+        dxyz = np.array([x, y, z])
+        R = np.array(R)
         neup = R @ dxyz
         return neup[0], neup[1], neup[2]
     """Ta funkcja przekrztałca współrzędne XYZ do NEU"""
@@ -59,7 +60,7 @@ class CoordinateTransformer:
 
 
     def rneu(self, lat, lon):
-        return [[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
+        return np.array [[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
                 [-math.sin(lon), math.cos(lon), 0],
                 [math.cos(lat) * math.cos(lon), math.cos(lat) * math.sin(lon), math.sin(lat)]]
 
