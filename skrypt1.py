@@ -60,9 +60,9 @@ class CoordinateTransformer:
 
 
     def rneu(self, lat, lon):
-        return np.array [[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
+        return np.array([[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
                 [-math.sin(lon), math.cos(lon), 0],
-                [math.cos(lat) * math.cos(lon), math.cos(lat) * math.sin(lon), math.sin(lat)]]
+                [math.cos(lat) * math.cos(lon), math.cos(lat) * math.sin(lon), math.sin(lat)]])
 
     def fl2gk(self, lat, lon, lon0, a, e2):
         b2 = a * (1 - e2)
