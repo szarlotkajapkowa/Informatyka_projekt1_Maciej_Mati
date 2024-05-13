@@ -95,7 +95,7 @@ W przypadku błędu konstrukcyjnego "literówki", podania nieobsługiwanej elips
 Nie znaleziono więcej błędów, bądź nietypowego zachowania programu podczas transformacji. 
 Program był testowany i transformacje zgadzają się, dając poprawne wyniki. 
 
-#Autorzy 
+#Autorzy <br>
 Mateusz Bownik, Maciej Frączek 
 
  
