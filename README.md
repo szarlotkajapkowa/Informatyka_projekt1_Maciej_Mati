@@ -45,31 +45,31 @@ Należy wtedy uprzednio przygotować plik, co będzie opisane w dalszej częsci-
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do_BLH --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BLH.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BLH w stopniach, minutach, sekundach oraz h w metrach.
 
 2.BLH_do_XYZ
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BLH_do_XYZ --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie BLH, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie BLH w stopniach dziesietnych i metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ w metrach.
 
 3.XYZ_do_NEU
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do_NEU --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne NEU.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne w wektor NEU.
 
 4.BL_do_2000
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_2000 --elipsoida Krasowski
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie BL, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 2000.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie BL w stopniach dziesiętnych, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 2000 w metrach.
 
 5.BL_do_1992
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_1992 --elipsoida Krasowski
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie BL, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 1992.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie BL w stopniach dziesiętnych, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 1992 w metrach.
 
 #Struktura plików wejściowych
 
