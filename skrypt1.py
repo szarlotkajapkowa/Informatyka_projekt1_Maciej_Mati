@@ -25,18 +25,25 @@ class CoordinateTransformer:
             raise ValueError(f'nie ma takiej elipsoidy: {nazwa}')
         return self.elipsoidy[nazwa]['a'], self.elipsoidy[nazwa]['e2']
 
-def XYZ_do_BLH(self, x, y, z, a, e2):
-    p = math.sqrt(x**2 + y**2)
-    theta = math.atan2(z * a, p * (1 - e2))
-    lon = math.atan2(y, x)
-    lat = math.atan2(z + e2 * a * math.sin(theta)**3, p - e2 * a * math.cos(theta)**3)
-    N = a / math.sqrt(1 - e2 * math.sin(lat)**2)
-    h = p / math.cos(lat) - N
-    lat_deg = math.degrees(lat)
-    lon_deg = math.degrees(lon)
-    return lat_deg, lon_deg, h
-
+    def XYZ_do_BLH(self, x, y, z, a, e2):
+        p = math.sqrt(x**2 + y**2)
+        lon = math.atan2(y, x)
+        lat = math.atan2(z, p * (1 - e2))
+        
+        """Iteracyjnie poprawiamy wartość szerokości geograficznej"""
+   
+        lat_prev = 0
+        while abs(lat - lat_prev) > 1e-12:
+            lat_prev = lat
+            N = a / math.sqrt(1 - e2 * math.sin(lat)**2)
+            lat = math.atan2(z + e2 * N * math.sin(lat), p)
+        
+        h = p / math.cos(lat) - N
+        lat_deg = math.degrees(lat)
+        lon_deg = math.degrees(lon)
+        return lat_deg, lon_deg, h
     """Ta funkcja zamienia współrzędne XYZ na współrzędne geodezyjne"""
+
     def BLH_do_XYZ(self, lat, lon, h, a, e2):
         lat_rad = math.radians(lat)
         lon_rad = math.radians(lon)
@@ -46,7 +53,6 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
         z = (N * (1 - e2) + h) * math.sin(lat_rad)
         return x, y, z
     """Ta funkcja zamienia współrzędne geodezyjne(BLH) na XYZ."""
-    
 
     def XYZ_do_NEU(self, x, y, z, lat, lon):
         lat_rad = math.radians(lat)
@@ -56,9 +62,7 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
         R = np.array(R)
         neup = R @ dxyz
         return neup[0], neup[1], neup[2]
-    """Ta funkcja przekrztałca współrzędne XYZ do NEU"""
-
-
+    """Ta funkcja przekształca współrzędne XYZ do NEU"""
 
     def rneu(self, lat, lon):
         return np.array([[-math.sin(lat) * math.cos(lon), -math.sin(lat) * math.sin(lon), math.cos(lat)],
@@ -87,9 +91,7 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
 
         return xgk, ygk
 
-
     """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne Gaussa-Krugera."""
-
 
     def sigma(self, lat, a, e2):
         A0 = 1 - e2 / 4 - 3 * e2**2 / 64 - 5 * e2**3 / 256
@@ -101,6 +103,8 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
 
     def BL_do_2000(self, lat, lon, elipsoida):
         a, e2 = self.wpisz_elipsoide(elipsoida)
+        if elipsoida == 'Krasowski':
+            print("Ostrzeżenie: Elipsoida Krasowskiego nie jest zalecana dla transformacji do układu 2000.")
         if lon < 13.5 or lon >= 25.5:
             raise ValueError(f'Lambda {lon} poza zasiegiem ukladu 2000')
         zone = int((lon + 1.5) // 3)
@@ -111,12 +115,12 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
         y2000 = ygk * m2000 + zone * 1000000 + 500000
         return x2000, y2000
 
-
     """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne w układzie 2000."""
-
 
     def BL_do_1992(self, lat, lon, elipsoida):
         a, e2 = self.wpisz_elipsoide(elipsoida)
+        if elipsoida == 'Krasowski':
+            print("Ostrzeżenie: Elipsoida Krasowskiego nie jest zalecana dla transformacji do układu 1992.")
         lon0 = 19
         xgk, ygk = self.fl2gk(lat, lon, lon0, a, e2)
         m1992 = 0.9993
@@ -125,7 +129,6 @@ def XYZ_do_BLH(self, x, y, z, a, e2):
         return x1992, y1992
 
     """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne w układzie 1992."""
-
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='transformacja zmiany wspolrzednych')
@@ -139,13 +142,12 @@ def main():
     args = parse_arguments()
     transformer = CoordinateTransformer()
 
-    # Załaduj plik
+  
     with open(args.input, newline='') as infile:
         reader = csv.reader(infile)
         header = next(reader)
         data = [list(map(float, row)) for row in reader]
 
-   
     results = []
     try:
         if args.transformacja == 'XYZ_do_BLH':
@@ -175,7 +177,7 @@ def main():
         print(f'Error: {e}')
         sys.exit(1)
 
-    # Zapisz wyniki aby wyswietlić plik
+  
     with open(args.output, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(['Wyniki transformacji'])  
@@ -183,4 +185,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
