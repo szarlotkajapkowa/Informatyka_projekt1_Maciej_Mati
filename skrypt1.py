@@ -25,16 +25,17 @@ class CoordinateTransformer:
             raise ValueError(f'nie ma takiej elipsoidy: {nazwa}')
         return self.elipsoidy[nazwa]['a'], self.elipsoidy[nazwa]['e2']
 
-    def XYZ_do_BLH(self, x, y, z, a, e2):
-        p = math.sqrt(x**2 + y**2)
-        theta = math.atan2(z * a, p * math.sqrt(1 - e2))
-        lon = math.atan2(y, x)
-        lat = math.atan2(z + e2 * (a / math.sqrt(1 - e2)) * math.sin(theta)**3, p - e2 * a * math.cos(theta)**3)
-        N = a / math.sqrt(1 - e2 * math.sin(lat)**2)
-        h = p / math.cos(lat) - N
-        lat_deg = math.degrees(lat)
-        lon_deg = math.degrees(lon)
-        return lat_deg, lon_deg, h
+def XYZ_do_BLH(self, x, y, z, a, e2):
+    p = math.sqrt(x**2 + y**2)
+    theta = math.atan2(z * a, p * (1 - e2))
+    lon = math.atan2(y, x)
+    lat = math.atan2(z + e2 * a * math.sin(theta)**3, p - e2 * a * math.cos(theta)**3)
+    N = a / math.sqrt(1 - e2 * math.sin(lat)**2)
+    h = p / math.cos(lat) - N
+    lat_deg = math.degrees(lat)
+    lon_deg = math.degrees(lon)
+    return lat_deg, lon_deg, h
+
     """Ta funkcja zamienia współrzędne XYZ na współrzędne geodezyjne"""
     def BLH_do_XYZ(self, lat, lon, h, a, e2):
         lat_rad = math.radians(lat)
