@@ -45,13 +45,13 @@ Należy wtedy uprzednio przygotować plik, co będzie opisane w dalszej częsci-
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do_BLH --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BLH w stopniach, minutach, sekundach oraz h w metrach.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BLH w stopniach(przeliczone na dziesiętne) oraz h w metrach.
 
 2.BLH_do_XYZ
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BLH_do_XYZ --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie BLH w stopniach dziesietnych i metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ w metrach.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie BLH w stopniach(przeliczone na dziesiętne), natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ w metrach.
 
 3.XYZ_do_NEU
 
@@ -59,15 +59,21 @@ python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do
 
 Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne w wektor NEU.
 
+WAŻNE-----W tej trannsformacji pierwszy punkt podany w pliku wejściowym będzie brany przez skrypt jako środek układu-----WAŻNE
+
 4.BL_do_2000
 
-python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_2000 --elipsoida Krasowski
+python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_2000 --elipsoida GRS80
+
+W przypadku użycia elipsoidy Krasowskiego program wystosuje do użytkownika ostrzeżenie o błędnych wynikach przy użyciu tej kombinacji transformacji i elipsoidy.
 
 Plik wejściowy wsp_inp.txt zawiera dane w formacie BL w stopniach dziesiętnych, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 2000 w metrach.
 
 5.BL_do_1992
 
-python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_1992 --elipsoida Krasowski
+python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BL_do_1992 --elipsoida GRS80
+
+W przypadku użycia elipsoidy Krasowskiego program wystosuje do użytkownika ostrzeżenie o błędnych wynikach przy użyciu tej kombinacji transformacji i elipsoidy.
 
 Plik wejściowy wsp_inp.txt zawiera dane w formacie BL w stopniach dziesiętnych, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XY w układzie 1992 w metrach.
 
