@@ -5,8 +5,8 @@ Został napisany w języku Python i obsługuje takie przekształcenia jak:
 - XYZ(geocentryczne) ---> BLH(geodezyjne)
 - BLH(geocentryczne) ---> XYZ(geocentryczne)
 - XYZ ---> NEU(topocentryczne)
-- BL(GRS80, WGS84, Krasowski) ---> XY w układzie 2000
-- BL(GRS80, WGS84, Krasowski) ---> XY w układzie 1992
+- BL(GRS80, WGS84) ---> XY w układzie 2000
+- BL(GRS80, WGS84) ---> XY w układzie 1992
 
 #Wymagania 
 - Python w wersji 3.6 lub nowszej
