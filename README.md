@@ -45,7 +45,7 @@ Należy wtedy uprzednio przygotować plik, co będzie opisane w dalszej częsci-
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do_BLH --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BLH w stopniach(przeliczone na dziesiętne) oraz h w metrach.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne BL w stopniach(przeliczone na dziesiętne) oraz H w metrach.
 
 2.BLH_do_XYZ
 
