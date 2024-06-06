@@ -67,22 +67,6 @@ class CoordinateTransformer:
         neu = R @ dxyz
         return neu[0], neu[1], neu[2]
 
-# Użycie pierwszego punktu jako referencyjnego
-ref_point = data[0]
-transformer = CoordinateTransformer()
-a, e2 = transformer.wpisz_elipsoide('GRS80')
-ref_lat, ref_lon, ref_h = transformer.XYZ_do_BLH(ref_point[0], ref_point[1], ref_point[2], a, e2)
-
-# Obliczanie współrzędnych NEU dla wszystkich punktów względem punktu referencyjnego
-results = []
-for point in data:
-    dx = point[0] - ref_point[0]
-    dy = point[1] - ref_point[1]
-    dz = point[2] - ref_point[2]
-    n, e, u = transformer.XYZ_do_NEU(dx, dy, dz, ref_lat, ref_lon)
-    results.append((n, e, u))
-
-results
 
     def fl2gk(self, lat, lon, lon0, a, e2):
         b2 = a * (1 - e2)
