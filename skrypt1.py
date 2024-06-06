@@ -54,10 +54,10 @@ class CoordinateTransformer:
         return x, y, z
     """Ta funkcja zamienia współrzędne geodezyjne(BLH) na XYZ."""
 
-    def XYZ_do_NEU(self, x, y, z, lat, lon):
-        lat_rad = math.radians(lat)
-        lon_rad = math.radians(lon)
-        R = self.rneu(lat_rad, lon_rad)
+    def XYZ_do_NEU(self, x, y, z, ref_lat, ref_lon):
+        ref_lat_rad = math.radians(ref_lat)
+        ref_lon_rad = math.radians(ref_lon)
+        R = self.rneu(ref_lat_rad, ref_lon_rad)
         dxyz = np.array([x, y, z])
         R = np.array(R)
         neup = R @ dxyz
@@ -161,9 +161,9 @@ def main():
                 x, y, z = transformer.BLH_do_XYZ(lat, lon, h, a, e2)
                 results.append([x, y, z])
         elif args.transformacja == 'XYZ_do_NEU':
-            lat, lon = data[0][:2]
+            ref_lat, ref_lon = data[0][:2]
             for x, y, z in data:
-                n, e, u = transformer.XYZ_do_NEU(x, y, z, lat, lon)
+                n, e, u = transformer.XYZ_do_NEU(x, y, z, ref_lat, ref_lon)
                 results.append([n, e, u])
         elif args.transformacja == 'BL_do_2000':
             for lat, lon in data:
