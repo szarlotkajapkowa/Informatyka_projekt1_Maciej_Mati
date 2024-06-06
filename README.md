@@ -36,7 +36,7 @@ Program można uruchomić z wiersza poleceń postepując zgodnie z poniższymi k
 4. '--elipsoida': Typ elipsoidy
  
 WAŻNE----Kod został napisany dla plików w formacie CSV na potrzeby  jego uniwersalności, jednakże, jeżeli użytkownik posiada plik txt to program również zadziała.
-Należy wtedy uprzednio przygotować plik, co będzie opisane w dalszej częsci----WAŻNE
+Należy wtedy uprzednio przygotować plik, co będzie opisane w dalszej części----WAŻNE
 
  Przykłady dla każdego wariantu transformacji:
  Plik wejściowy: wsp_inp.txt (XYZ)
@@ -51,13 +51,13 @@ Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast pli
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja BLH_do_XYZ --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie BLH w stopniach(przeliczone na dziesiętne), natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ w metrach.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie BL w stopniach(przeliczone na dziesiętne) oraz H w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne XYZ w metrach.
 
 3.XYZ_do_NEU
 
 python skrypt1.py --input wsp_inp.txt --output wyniki.txt --transformacja XYZ_do_NEU --elipsoida GRS80
 
-Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne w wektor NEU.
+Plik wejściowy wsp_inp.txt zawiera dane w formacie XYZ w metrach, natomiast plik wyjściowy wyniki.txt zawiera przekształcone współrzędne w wektor NEU w metrach.
 
 WAŻNE-----W tej trannsformacji pierwszy punkt podany w pliku wejściowym będzie brany przez skrypt jako środek układu-----WAŻNE
 
@@ -87,8 +87,8 @@ Plik w zależności od żądanej transformacji pownien posiadać następującą 
 - XYZ(geocentryczne) ---> BLH(geodezyjne): Plik zawiera trzy kolumny 'X','Y','Z'
 - BLH(geocentryczne) ---> XYZ(geocentryczne): Plik zawiera trzy kolumny 'B','L','H' ('lat','lon','H')
 - XYZ ---> NEU(topocentryczne):  Plik zawiera trzy kolumny 'X','Y','Z'
-- BL(GRS80, WGS84, Krasowski) ---> XY w układzie 2000: Plik zawiera dwie kolumny 'B','L' ('lat','lon')
-- BL(GRS80, WGS84, Krasowski) ---> XY w układzie 1992: Plik zawiera dwie kolumny 'B','L' ('lat','lon')
+- BL(GRS80, WGS84) ---> XY w układzie 2000: Plik zawiera dwie kolumny 'B','L' ('lat','lon')
+- BL(GRS80, WGS84) ---> XY w układzie 1992: Plik zawiera dwie kolumny 'B','L' ('lat','lon')
 
 #Struktura plików wyjściowych
 
