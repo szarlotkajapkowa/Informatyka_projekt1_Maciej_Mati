@@ -67,6 +67,7 @@ class CoordinateTransformer:
         neu = R @ dxyz
         return neu[0], neu[1], neu[2]
 
+                    
 
     def fl2gk(self, lat, lon, lon0, a, e2):
         b2 = a * (1 - e2)
@@ -91,6 +92,7 @@ class CoordinateTransformer:
         return xgk, ygk
 
     """Ta funkcja zamienia współrzędne geodezyjne(FL) na współrzędne Gaussa-Krugera."""
+    
 
     def sigma(self, lat, a, e2):
         A0 = 1 - e2 / 4 - 3 * e2**2 / 64 - 5 * e2**3 / 256
@@ -160,9 +162,14 @@ def main():
                 x, y, z = transformer.BLH_do_XYZ(lat, lon, h, a, e2)
                 results.append([x, y, z])
         elif args.transformacja == 'XYZ_do_NEU':
-            ref_lat, ref_lon = data[0][:2]
-            for x, y, z in data:
-                n, e, u = transformer.XYZ_do_NEU(x, y, z, ref_lat, ref_lon)
+            ref_point = data[0]
+            a, e2 = transformer.wpisz_elipsoide(args.elipsoida)
+            ref_lat, ref_lon, ref_h = transformer.XYZ_do_BLH(ref_point[0], ref_point[1], ref_point[2], a, e2)
+            for point in data:
+                dx = point[0] - ref_point[0]
+                dy = point[1] - ref_point[1]
+                dz = point[2] - ref_point[2]
+                n, e, u = transformer.XYZ_do_NEU(dx, dy, dz, ref_lat, ref_lon)
                 results.append([n, e, u])
         elif args.transformacja == 'BL_do_2000':
             for lat, lon in data:
@@ -176,14 +183,14 @@ def main():
         print(f'Error: {e}')
         sys.exit(1)
 
-  
     with open(args.output, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(['Wyniki transformacji'])  
+        writer.writerow(['Wyniki transformacji'])
         writer.writerows(results)
 
 if __name__ == "__main__":
     main()
+
 
 
 
