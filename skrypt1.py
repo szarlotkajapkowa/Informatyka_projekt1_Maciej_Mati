@@ -13,7 +13,7 @@ import numpy as np
 
 class CoordinateTransformer:
     def __init__(self):
-        # Stałe dla elipsoid
+     
         self.elipsoidy = {
             'GRS80': {'a': 6378137.0, 'e2': 0.00669438002290},
             'WGS84': {'a': 6378137.0, 'e2': 0.00669437999014},
@@ -120,10 +120,27 @@ class CoordinateTransformer:
 
     def BL_do_1992(self, lat, lon, elipsoida):
         a, e2 = self.wpisz_elipsoide(elipsoida)
-        if elipsoida == 'Krasowski':
-            print("Ostrzeżenie: Elipsoida Krasowskiego nie jest zalecana dla transformacji do układu 1992.")
-        lon0 = 19
-        xgk, ygk = self.fl2gk(lat, lon, lon0, a, e2)
+        lon0 = 19  
+        lat_rad = math.radians(lat)
+        lon_rad = math.radians(lon)
+        lon0_rad = math.radians(lon0)
+        e2p = e2 / (1 - e2)
+        N = a / math.sqrt(1 - e2 * math.sin(lat_rad)**2)
+        t = math.tan(lat_rad)
+        eta2 = e2p * math.cos(lat_rad)**2
+
+        l = lon_rad - lon0_rad
+
+        A0 = 1 - e2 / 4 - 3 * e2**2 / 64 - 5 * e2**3 / 256
+        A2 = 3 / 8 * (e2 + e2**2 / 4 + 15 * e2**3 / 128)
+        A4 = 15 / 256 * (e2**2 + 3 * e2**3 / 4)
+        A6 = 35 * e2**3 / 3072
+
+        sigma = a * (A0 * lat_rad - A2 * math.sin(2 * lat_rad) + A4 * math.sin(4 * lat_rad) - A6 * math.sin(6 * lat_rad))
+
+        xgk = sigma + (l**2 / 2) * N * math.sin(lat_rad) * math.cos(lat_rad) * (1 + (l**2 / 12) * math.cos(lat_rad)**2 * (5 - t**2 + 9 * eta2 + 4 * eta2**2) + (l**4 / 360) * math.cos(lat_rad)**4 * (61 - 58 * t**2 + t**4 + 270 * eta2 - 330 * eta2 * t**2))
+        ygk = l * N * math.cos(lat_rad) * (1 + (l**2 / 6) * math.cos(lat_rad)**2 * (1 - t**2 + eta2) + (l**4 / 120) * math.cos(lat_rad)**4 * (5 - 18 * t**2 + t**4 + 14 * eta2 - 58 * eta2 * t**2))
+
         m1992 = 0.9993
         x1992 = xgk * m1992 - 5300000
         y1992 = ygk * m1992 + 500000
@@ -190,6 +207,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
